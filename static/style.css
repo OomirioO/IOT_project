@@ -1,11 +1,12 @@
 body {
-    background-color: rgb(252, 118, 241);
+    background-color: rgb(255, 255, 255);
 }
 
 .container {                    /* 전체 화면의 크기 마진 그리고 글자정렬 */
     width: 700px;
     margin: 0 auto;
     text-align: center;
+    font-family: "paybooc-Light", sans-serif;
 }
 
 .main {                         /* 첫번째 버튼 */
@@ -20,6 +21,49 @@ body {
     position: relative;
     border: none;
     display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.main div button outline {
+    position: relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.off {
+    display:flex;
+}
+
+.off div {
+    flex:1;
+}
+
+.off div button {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.off div button {
+    position: relative;
     padding: 15px 30px;
     border-radius: 15px;
     font-family: "paybooc-Light", sans-serif;
