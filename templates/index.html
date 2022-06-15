@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>PET AUTO FEEDER</title>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- css 파일 지정-->
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2>PET AUTO FEEDER</h2>
+            <h1>PET AUTO FEEDER</h1>
         </div>
+        <div class="display_video">
+            <img src="{{ url_for('video_feed') }}">
+        </div>
+        <br>
         <div class="main">
+            <div id="alarm">
+                <h2>시계</h2>
+                <h3>체크리스트?</h3>
+            </div>
+            <div id="result"> 
+                <h2>Status</h2>
+            </div>
             <div>
                 <button onclick="servo()">servo</button>                      <!-- Javascript 함수 지정 -->
-                <button onclick="camera()">camera</button>
-                <button onclick="video()">video</button>
+                <button onclick="capture_pic()">capture</button>
+                <button onclick="turn_off()">OFF</button>
             </div>
         </div>
-        <div id="result">
-
-        </div>
     </div>
+
     <script>
         function servo(){
             fetch("/servo")                                                    /* 해당 경로 파일을 실행 */
@@ -29,38 +39,28 @@
                 console.log(data);
                 let result = document.querySelector("#result");                 /* result 영역을 알아내고 */
                 if(data=="ok"){                                                 /* "ok" 가 돌아오면 이에 따라 적합한 결과 출력해 줌 */
-                    result.innerHTML = "<h1>dpd</h1>";
+                    result.innerHTML = "<h2>Feed Complete</h2>";
                 }else{
-                    result.innerHTML = "<h1>error</h1>";
+                    result.innerHTML = "<h2 style='color:Red'>ERROR</h2>";
                 }
             });
         }
-        function camera(){
-            fetch("/camera")                                                    /* 해당 경로 파일을 실행 */
-            .then(response=> { console.log(response); return response.text()})
+        
+<--! capture pic error ing -->
+        function capture_pic(){
+            fetch("/capture_pic")
+            .then(response=> {console.log(response); return response.text()})
             .then(data=> {
                 console.log(data);
-                let result = document.querySelector("#result");                 /* result 영역을 알아내고 */
-                if(data=="ok"){                                                 /* "ok" 가 돌아오면 이에 따라 적합한 결과 출력해 줌 */
-                    result.innerHTML = "<h1>dpd</h1>";
-                }else{
-                    result.innerHTML = "<h1>error</h1>";
-                }
-            });
-        }
-        function video(){
-            fetch("/video")
-            .then(response=> { console.log(response); return response.text()})
-            .then(data=> {
-                console.log(data);
-                let result=document.querySelector("#result");
+                let display_video = document.querySelector("#display_video");
                 if(data=="ok"){
-                    window.open('https://localhost:8080',"","_blank");
-                }else{
-                    result.innerHTML="<h1>error</h1>";
+                    result.innerHTML="<h2>Capture Complete</h2>"
+                } else{
+                    result.innerHTML="<h2 style='color:Red'>CAPTURE ERROR</h2>"
                 }
             });
         }
+
         function turn_off(){
             fetch("/turn_off")
             .then(response=> {console.log(response); return response.text()})
@@ -68,9 +68,11 @@
                 console.log(data);
                 let result=document.querySelector("#result");
                 if(data=="ok"){
-                    
+                    result.innerHTML="<h2>TURN OFF</h2>"
+                }else {
+                    result.innerHTML = "<h2 style='color:Red'>ERROR</h2>"
                 }
-            })
+            });
         }
     </script>
 </body>
