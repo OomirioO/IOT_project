@@ -3,10 +3,30 @@ body {
 }
 
 .container {                    /* 전체 화면의 크기 마진 그리고 글자정렬 */
-    width: 700px;
+    width: 1400px;
     margin: 0 auto;
     text-align: center;
     font-family: "paybooc-Light", sans-serif;
+}
+
+.header {
+    display:block;
+    background-color: bisque;
+    font-weight: bold;
+    text-align:center;
+}
+
+.display_video {
+    display:block;
+}
+
+.result {
+    display:flex;
+    width: 200px;
+    height:200px;
+    border-radius: 1px;
+    border-style:dashed;
+    border-color:#eed1d1
 }
 
 .main {                         /* 첫번째 버튼 */
@@ -14,13 +34,17 @@ body {
 }
 
 .main div {                     /* 두번째 버튼. 새로 만들때 마다 번호 올려주면 됨 */
-    flex:1;
+    flex:3;
+}
+
+.main div h2 {
+    display: inline-block;
 }
 
 .main div button {              /* 버튼의 모양 */
     position: relative;
     border: none;
-    display: inline-block;
+    /* float:right; */
     padding: 15px 30px;
     border-radius: 15px;
     font-family: "paybooc-Light", sans-serif;
@@ -28,47 +52,6 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: 0.25s;
-}
-
-.main div button outline {
-    position: relative;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
-}
-
-.off {
-    display:flex;
-}
-
-.off div {
-    flex:1;
-}
-
-.off div button {
-    position: relative;
-    border: none;
-    display: inline-block;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
-}
-
-.off div button {
-    position: relative;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
+    width: 130px;
+    height: 130px;
 }
