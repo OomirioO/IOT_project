@@ -16,16 +16,15 @@
         </div>
         <br>
         <div class="main">
-            <div id="alarm">
-                <h2>시계</h2>
-                <h3>체크리스트?</h3>
+            <div id="today">
+                <div id="date" class="date"></div>
+                <div id="time" class="time"></div>
             </div>
             <div id="result"> 
                 <h2>Status</h2>
             </div>
             <div>
-                <button onclick="servo()">servo</button>                      <!-- Javascript 함수 지정 -->
-                <button onclick="capture_pic()">capture</button>
+                <button onclick="servo()">FEED</button>                      <!-- Javascript 함수 지정 -->
                 <button onclick="turn_off()">OFF</button>
             </div>
         </div>
@@ -45,21 +44,6 @@
                 }
             });
         }
-        
-<--! capture pic error ing -->
-        function capture_pic(){
-            fetch("/capture_pic")
-            .then(response=> {console.log(response); return response.text()})
-            .then(data=> {
-                console.log(data);
-                let display_video = document.querySelector("#display_video");
-                if(data=="ok"){
-                    result.innerHTML="<h2>Capture Complete</h2>"
-                } else{
-                    result.innerHTML="<h2 style='color:Red'>CAPTURE ERROR</h2>"
-                }
-            });
-        }
 
         function turn_off(){
             fetch("/turn_off")
@@ -72,7 +56,25 @@
                 }else {
                     result.innerHTML = "<h2 style='color:Red'>ERROR</h2>"
                 }
+
             });
+        }
+
+        function setClock() {
+            var today=new Date();
+            var year=today.getFullYear();
+            var month=today.getMonth()+1; 
+            var date=today.getDate();
+            var hour=today.getHours();
+            var min=today.getMinutes();
+            var sec=today.getSeconds();
+            document.getElementById("time").innerHTML=hour+':'+min+':'+sec;
+            document.getElementById("date").innerHTML=year+' / '+month+' / '+date;
+        }
+        
+        window.onload = function(){
+        setClock();
+        setInterval(setClock,1000); //1초마다 setClock 함수 실행
         }
     </script>
 </body>
