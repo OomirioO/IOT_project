@@ -2,8 +2,6 @@
 from flask import Flask, request, render_template, Response
 import RPi.GPIO as GPIO
 import time
-import threading
-import picamera
 from camera import Camera
 
 app = Flask(__name__)
@@ -18,17 +16,19 @@ servo=GPIO.PWM(servo_pin,50)
 def main():
     return render_template('index.html')
 
+control=True
 @app.route("/servo")         # index.html에서 이 주소를 접속하여 해당 함수를 실행
 def turn_servo():
+    global control
+    control=True
     try:
-        servo.start(0)
-        servo.ChangeDutyCycle(2.5)  # 0도 서보모터 작동 -> 사료 출구 open
-        print("7.5")
-        time.sleep(1)         
-        servo.ChangeDutyCycle(12.5) # 180도 사료 출구 close
-        print("2.5")
-        time.sleep(1)
-        return "ok"                         # 함수가 'ok'문자열을 반환함
+        while control==True:
+            servo.start(0)
+            servo.ChangeDutyCycle(9.5)  # 90도 서보모터 작동 -> 사료 출구 open
+            print("9.5")
+            time.sleep(1)         
+           
+            return "ok"                         # 함수가 'ok'문자열을 반환함
     except :
         return "fail"
 
@@ -43,23 +43,15 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/capture_pic')
-def capture_pic():
-    with picamera.PiCamera() as camera:
-        try:
-            camera.resolution = (640, 480)
-            camera.capture('photo.jpg')
-            return "ok"
-        except:
-            return "fail"
-
-
 @app.route("/turn_off")
 def turn_off():
+    global control
     try:
-       # t1=threading.Thread(target=)
-        servo.stop()
-        #GPIO.cleanup()
+        control=False 
+        servo.ChangeDutyCycle(2.5) # 0도 사료 출구 close
+        print("2.5")
+        time.sleep(1)
+        # servo.stop()
         return "ok"
     except :
         return "fail"
